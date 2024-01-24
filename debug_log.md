@@ -15,7 +15,7 @@ _Then I noticed another bug ..._
 
 ## Exercise 1
 
-- Expected vs actual output: Expected pizza order form to work and display unfulfilled orders , but got an error `TypeError: 'topping' is an invalid keyword argument for PizzaTopping`
+- Expected vs actual output: Expected pizza order form to work and display unfulfilled orders, but got an error `TypeError: 'topping' is an invalid keyword argument for PizzaTopping`
 - Stack trace: `TypeError: 'topping' is an invalid keyword argument for PizzaTopping` which leads me to believe there's an error in the loop on line 78
 - Technique: Trace backwards from line 78 and noticed that we needed a `.form.getlist` instead of `.form.get` and we needed to iterate through `toppings_list` instead
 - Assumptions: `topping` is not a valid argument for `PizzaTopping` and `toppings_list` is not a list of toppings
@@ -53,4 +53,19 @@ _Then I noticed another bug ..._
 
 ## Exercise 3
 
-[[Your answer goes here!]]
+- Expected vs actual output: Expected `merge_sort` to sort the list, but got an error `IndexError: list index out of range`. Once fixed, noticed that the sorting order was reversed, and the binary search did not find the correct index
+- Stack trace: `IndexError: list index out of range`, `line 37, in merge_sort arr[k] = right_side[i]`. Merge sort and binary search also had strange behavior
+- Technique: Trace backwards from line 37. Then had to use divide and conquer to fix functionality
+- Assumptions: Assumed `merge_sort` had to be reversed, k wasn't being accounted for, and binary_search's mid was incorrect
+
+### Detailed steps to solution:
+
+- Noticed that the comparison in `merge_sort` was `if left_side[i] > right_side[j]:`, this sorted the array in descending order
+- Updated the comparison in `merge_sort` to `if left_side[i] < right_side[j]:` for ascending order
+- Identified an incorrect index reference in `merge_sort` while merging the right side of the array. It was incorrectly using the index `i` instead of `j`
+- Changed the line `arr[k] = right_side[i] to arr[k] = right_side[j]` in the merge_sort function
+- Noticed the binary search used a float for calculating `mid: (high + low) / 2`
+- Updated the mid calculation in `binary_search` to use integer division: `(high + low) // 2`
+- Noticed that the loop condition in `binary_search` was `while low < high:` which missed the case where low equals high
+- Changed the loop condition in `binary_search` to `while low <= high:` to include this case
+- Added `return -1` at the end of `binary_search` to handle cases where the element is not found
