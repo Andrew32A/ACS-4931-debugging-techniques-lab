@@ -36,7 +36,20 @@ _Then I noticed another bug ..._
 
 ## Exercise 2
 
-[[Your answer goes here!]]
+- Expected vs actual output: Expected the weather to retrieve properly, but ran into an internal server error with a KeyError of `'name'` in `'city': result_json['name']`
+- Stack trace: `KeyError: 'name'`, `line 52, in results 'city': result_json['name'],`
+- Technique: Trace backwards from line 52
+- Assumptions: Assumed that `'city': result_json['name']`, turns out that the API requires `'q': city` in the params
+
+### Detailed steps to solution:
+
+- Identified the KeyError: 'name' on line 52, indicating a missing/incorrect key
+- Traced back to the API call and recognized the incorrect parameter `'place'`: city
+- Updated the API call parameters by changing `'place': city` to `'q': city` for correct API usage
+- Corrected the key for temperature access by changing temperature to temp in line with API's JSON structure
+- Replaced `'users_city'` and `'requested_units'` in request.args.get with `'city'` and `'units'`
+- Implemented error handling for the API response to manage potential data retrieval issues
+- Noticed an error in `<h2>What's the weather like today?</h1>` and updated to h2
 
 ## Exercise 3
 
